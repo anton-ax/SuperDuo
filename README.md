@@ -6,6 +6,6 @@ Modernize two different apps
 
   <img src=https://raw.githubusercontent.com/native1989/SuperDuo/master/images/widget_preview.png width=200 height=136 />
   
-  * Added rtl support:
+* Added rtl support:
 
   <img src=https://raw.githubusercontent.com/native1989/SuperDuo/master/images/rtl.png width=200 />
