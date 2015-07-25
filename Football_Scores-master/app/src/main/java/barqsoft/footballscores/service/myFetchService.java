@@ -23,10 +23,7 @@ import java.util.Vector;
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.model.Team;
 import barqsoft.footballscores.provider.TeamProvider;
-import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by yehya khaled on 3/2/2015.
@@ -61,8 +58,8 @@ public class myFetchService extends IntentService {
     }
 
     private void processJSONdata(String JSONdata, Context mContext, boolean isReal) {
-        //JSON data
-        final String SERIE_A = "357"; //"357";
+
+        final String SERIE_A = "357";
         final String SECOND_BUNDESLIGA = "394";
         final String PREMIER_LEGAUE = "354";
         final String CHAMPIONS_LEAGUE = "362";
@@ -84,22 +81,21 @@ public class myFetchService extends IntentService {
         final String MATCH_DAY = "matchday";
 
         //Match data
-        String League = null;
-        String mDate = null;
-        String mTime = null;
-        String Home = null;
-        String Away = null;
-        String Home_goals = null;
-        String Away_goals = null;
-        String match_id = null;
-        String match_day = null;
+        String League;
+        String mDate;
+        String mTime;
+        String Home;
+        String Away;
+        String Home_goals;
+        String Away_goals;
+        String match_id;
+        String match_day;
 
         try {
             Log.e("processJSONdata", "processJSONdata");
             JSONArray matches = new JSONObject(JSONdata).getJSONArray(FIXTURES);
 
-            //ContentValues to be inserted
-            Vector<ContentValues> values = new Vector<ContentValues>(matches.length());
+            Vector<ContentValues> values = new Vector<>(matches.length());
             for (int i = 0; i < matches.length(); i++) {
                 JSONObject match_data = matches.getJSONObject(i);
                 League = match_data.getJSONObject(LINKS).getJSONObject(SOCCER_SEASON).

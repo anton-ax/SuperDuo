@@ -17,13 +17,16 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().
-                setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Football Scores");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+        }
+
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             my_main = new PagerFragment();
-            getSupportFragmentManager().beginTransaction()
+            getSupportFragmentManager()
+                    .beginTransaction()
                     .add(R.id.container, my_main)
                     .commit();
         }

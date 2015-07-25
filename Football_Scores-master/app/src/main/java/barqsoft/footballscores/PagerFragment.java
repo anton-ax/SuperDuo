@@ -1,6 +1,5 @@
 package barqsoft.footballscores;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +24,15 @@ import barqsoft.footballscores.service.myFetchService;
  * Created by yehya khaled on 2/27/2015.
  */
 public class PagerFragment extends Fragment {
+
     public static final int NUM_PAGES = 5;
+    private static final long ONE_DAY = 86400000;
+
     public ViewPager mPagerHandler;
     private MainScreenFragment[] viewFragments = new MainScreenFragment[5];
-    private TabLayout pager_header;
+
+    private SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE",
+            getResources().getConfiguration().locale);
 
     private int day = 14;
 
@@ -37,7 +42,7 @@ public class PagerFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.pager_fragment, container, false);
         mPagerHandler = (ViewPager) rootView.findViewById(R.id.pager);
-        pager_header = (TabLayout) rootView.findViewById(R.id.pager_header);
+        TabLayout pager_header = (TabLayout) rootView.findViewById(R.id.pager_header);
 
         myPageAdapter mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd",
@@ -47,18 +52,13 @@ public class PagerFragment extends Fragment {
         getActivity().getApplicationContext().startService(service_start);
 
         for (int i = 0; i < NUM_PAGES; i++) {
-            Date fragmentDate  = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
+            Date fragmentDate = new Date(System.currentTimeMillis() + ((i - 2) * ONE_DAY));
 
             // warning! debug only:
-            if(Utilies.DEBUG) {
-                String dateSt = "August " + (day++) + ", 2015";// start jd
-                try {
-                    SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                    fragmentDate = format.parse(dateSt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }//end jd
+            if (Utilies.DEBUG) {
+                fragmentDate = setDayWithGames();
             }
+
             viewFragments[i] = new MainScreenFragment();
             Bundle data = new Bundle();
             data.putString("date", mformat.format(fragmentDate));
@@ -68,6 +68,22 @@ public class PagerFragment extends Fragment {
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
         pager_header.setupWithViewPager(mPagerHandler);
         return rootView;
+    }
+
+    /*
+    For testing only.
+    Select day with large amount of games
+     */
+    private Date setDayWithGames() {
+        Date fragmentDate = null;
+        String dateSt = "August " + (day++) + ", 2015";// start jd
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+            fragmentDate = format.parse(dateSt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fragmentDate;
     }
 
     private class myPageAdapter extends FragmentStatePagerAdapter {
@@ -88,29 +104,24 @@ public class PagerFragment extends Fragment {
         // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            return getDayName(getActivity(), System.currentTimeMillis() + ((position - 2) * 86400000));
+            return getDayName(System.currentTimeMillis() + ((position - 2) * ONE_DAY));
         }
 
-        public String getDayName(Context context, long dateInMillis) {
-            // If the date is today, return the localized version of "Today" instead of the actual
-            // day name.
-
+        /**
+         * @param dateInMillis selected date
+         * @return localized version of Yesterday/Today/Tomorrow or actual week day
+         */
+        public String getDayName(long dateInMillis) {
             Time t = new Time();
             t.setToNow();
             int julianDay = Time.getJulianDay(dateInMillis, t.gmtoff);
             int currentJulianDay = Time.getJulianDay(System.currentTimeMillis(), t.gmtoff);
-            if (julianDay == currentJulianDay) {
-                return context.getString(R.string.today);
-            } else if (julianDay == currentJulianDay + 1) {
-                return context.getString(R.string.tomorrow);
-            } else if (julianDay == currentJulianDay - 1) {
-                return context.getString(R.string.yesterday);
+            long now = System.currentTimeMillis();
+            if ((julianDay >= currentJulianDay - 1 && julianDay <= currentJulianDay + 1)) {
+                CharSequence relativeTimeSpanString = DateUtils.getRelativeTimeSpanString(
+                        dateInMillis, now, DateUtils.DAY_IN_MILLIS);
+                return relativeTimeSpanString.toString();
             } else {
-                Time time = new Time();
-                time.setToNow();
-                // Otherwise, the format is just the day of the week (e.g "Wednesday".
-                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE",
-                        getResources().getConfiguration().locale);
                 return dayFormat.format(dateInMillis);
             }
         }

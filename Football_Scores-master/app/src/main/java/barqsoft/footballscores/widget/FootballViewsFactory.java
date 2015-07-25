@@ -114,7 +114,7 @@ public class FootballViewsFactory implements RemoteViewsService.RemoteViewsFacto
             e.printStackTrace();
         }
         // warning! debug only:
-        if(Utilies.DEBUG) {
+        if (Utilies.DEBUG) {
             fragmentDate = "2015-08-16";
         }
         mCursor = ctxt.getContentResolver().query(
