@@ -77,4 +77,9 @@
     <color name="red14">#FFE4E4</color>
 
 
+    <color name="list_team_color">#FFCACA</color>
+    <color name="actionbar_color">#212121</color>
+    <color name="colorPrimaryDark">#171717</color>
+    <color name="bg_color">#388e3c</color>
+
 </resources>

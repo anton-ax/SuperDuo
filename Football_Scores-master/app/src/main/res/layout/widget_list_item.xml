@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#40923e"
-    android:elevation="4dp"
+    android:background="@color/bg_color"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,12 +16,6 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:padding="5dp">
-
-            <ImageView
-                android:id="@+id/home_crest"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/home_name"
@@ -55,6 +48,7 @@
             <TextView
                 android:id="@+id/data_textview"
                 android:layout_width="wrap_content"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -69,12 +63,6 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <ImageView
-                android:id="@+id/away_crest"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
             <TextView
                 android:id="@+id/away_name"
                 android:layout_width="wrap_content"
@@ -87,11 +75,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/details_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></FrameLayout>
 </LinearLayout>
 
 
