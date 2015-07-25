@@ -2,4 +2,4 @@
 Modernize two different apps
 
 Football Scores:
-![](https://github.com/github/training-kit/blob/master/images/professortocat.png)
+![](https://raw.githubusercontent.com/native1989/SuperDuo/master/images/widget_preview.png)
