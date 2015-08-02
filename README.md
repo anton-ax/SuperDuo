@@ -1,8 +1,10 @@
 # SuperDuo
 Modernize two different apps
-##Football Scores:
-  * bugfixes
-  * embed barcode scanner
+
+##Alexandria:
+ * bugfixes
+ * embed barcode scanner
+ 
 ##Football Scores:
 * bugfixes
 * Added widget support:
