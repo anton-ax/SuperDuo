@@ -11,7 +11,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     public scoresAdapter mAdapter;
     public static final int SCORES_LOADER = 0;
     private String[] fragmentdate = new String[1];
-    private int last_selected_item = -1;
     private BroadcastReceiver receiver;
     private int test = 0;
 
@@ -87,19 +85,12 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-//        cursor.moveToFirst();
-//        while (!cursor.isAfterLast()) {
-//            cursor.moveToNext();
-//        }
         mAdapter.swapCursor(cursor);
         mAdapter.notifyDataSetChanged();
-        Log.e("Swap Swap", "yeah");
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mAdapter.swapCursor(null);
     }
-
-
 }

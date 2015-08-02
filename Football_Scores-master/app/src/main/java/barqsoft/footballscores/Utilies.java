@@ -14,8 +14,10 @@ public class Utilies {
     public static final int PRIMERA_DIVISION = 358;
     public static final int BUNDESLIGA = 351;
 
+    public static final long ONE_DAY = 86400000;
+
     // todo debug only
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static String getLeague(Context context, int league_num) {
         switch (league_num) {

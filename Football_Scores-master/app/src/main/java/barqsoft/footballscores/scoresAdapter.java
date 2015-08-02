@@ -28,8 +28,7 @@ import java.io.InputStream;
 /**
  * Created by yehya khaled on 2/26/2015.
  */
-public class scoresAdapter extends CursorAdapter
-{
+public class scoresAdapter extends CursorAdapter {
     public static final int COL_HOME = 3;
     public static final int COL_AWAY = 4;
     public static final int COL_HOME_GOALS = 6;
@@ -44,9 +43,9 @@ public class scoresAdapter extends CursorAdapter
     private final GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder;
     public double detail_match_id = 0;
     private String FOOTBALL_SCORES_HASHTAG = "#Football_Scores";
-    public scoresAdapter(Context context,Cursor cursor,int flags)
-    {
-        super(context,cursor,flags);
+
+    public scoresAdapter(Context context, Cursor cursor, int flags) {
+        super(context, cursor, flags);
 
         requestBuilder = Glide.with(context)
                 .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
@@ -61,8 +60,7 @@ public class scoresAdapter extends CursorAdapter
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent)
-    {
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View mItem = LayoutInflater.from(context).inflate(R.layout.scores_list_item, parent, false);
         ViewHolder mHolder = new ViewHolder(mItem);
         mItem.setTag(mHolder);
@@ -71,16 +69,15 @@ public class scoresAdapter extends CursorAdapter
     }
 
     @Override
-    public void bindView(View view, final Context context, Cursor cursor)
-    {
+    public void bindView(View view, final Context context, Cursor cursor) {
         final ViewHolder mHolder = (ViewHolder) view.getTag();
         mHolder.home_name.setText(cursor.getString(COL_HOME));
         mHolder.away_name.setText(cursor.getString(COL_AWAY));
         mHolder.date.setText(cursor.getString(COL_MATCHTIME));
-        mHolder.score.setText(Utilies.getScores(cursor.getInt(COL_HOME_GOALS),cursor.getInt(COL_AWAY_GOALS)));
+        mHolder.score.setText(Utilies.getScores(cursor.getInt(COL_HOME_GOALS), cursor.getInt(COL_AWAY_GOALS)));
         mHolder.match_id = cursor.getDouble(COL_ID);
 
-        if(cursor.getString(COL_AVA_AWAY) != null) {
+        if (cursor.getString(COL_AVA_AWAY) != null) {
             Uri uri = Uri.parse(cursor.getString(COL_AVA_AWAY));
             requestBuilder
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -88,11 +85,9 @@ public class scoresAdapter extends CursorAdapter
                     .error(R.drawable.no_icon)
                     .into(mHolder.away_crest);
         } else {
-            requestBuilder
-                    .placeholder(R.drawable.no_icon)
-                    .into(mHolder.away_crest);
+            mHolder.away_crest.setImageResource(R.drawable.no_icon);
         }
-        if(cursor.getString(COL_AVA_HOME) != null) {
+        if (cursor.getString(COL_AVA_HOME) != null) {
             Uri uri = Uri.parse(cursor.getString(COL_AVA_HOME));
             requestBuilder
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -100,23 +95,20 @@ public class scoresAdapter extends CursorAdapter
                     .error(R.drawable.no_icon)
                     .into(mHolder.home_crest);
         } else {
-            requestBuilder
-                    .placeholder(R.drawable.no_icon)
-                    .into(mHolder.home_crest);
+            mHolder.home_crest.setImageResource(R.drawable.no_icon);
         }
-        Log.e("COL_AVA_HOME", cursor.getString(COL_AVA_HOME)+"");
+
         LayoutInflater vi = (LayoutInflater) context.getApplicationContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.detail_fragment, null);
         ViewGroup container = (ViewGroup) view.findViewById(R.id.details_fragment_container);
-        if(mHolder.match_id == detail_match_id)
-        {
+        if (mHolder.match_id == detail_match_id) {
             //Log.v(FetchScoreTask.LOG_TAG,"will insert extraView");
 
             container.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.MATCH_PARENT));
             TextView match_day = (TextView) v.findViewById(R.id.matchday_textview);
-            match_day.setText(Utilies.getMatchDay(context,cursor.getInt(COL_MATCHDAY),
+            match_day.setText(Utilies.getMatchDay(context, cursor.getInt(COL_MATCHDAY),
                     cursor.getInt(COL_LEAGUE)));
             TextView league = (TextView) v.findViewById(R.id.league_textview);
             league.setText(Utilies.getLeague(context, cursor.getInt(COL_LEAGUE)));
@@ -129,13 +121,12 @@ public class scoresAdapter extends CursorAdapter
                             + mHolder.score.getText() + " " + mHolder.away_name.getText() + " "));
                 }
             });
-        }
-        else
-        {
+        } else {
             container.removeAllViews();
         }
 
     }
+
     public Intent createShareForecastIntent(String ShareText) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);

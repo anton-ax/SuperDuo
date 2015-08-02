@@ -31,8 +31,7 @@ public class PagerFragment extends Fragment {
     public ViewPager mPagerHandler;
     private MainScreenFragment[] viewFragments = new MainScreenFragment[5];
 
-    private SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE",
-            getResources().getConfiguration().locale);
+    private SimpleDateFormat dayFormat;
 
     private int day = 14;
 
@@ -43,6 +42,8 @@ public class PagerFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.pager_fragment, container, false);
         mPagerHandler = (ViewPager) rootView.findViewById(R.id.pager);
         TabLayout pager_header = (TabLayout) rootView.findViewById(R.id.pager_header);
+
+        dayFormat = new SimpleDateFormat("EEEE", getResources().getConfiguration().locale);
 
         myPageAdapter mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd",

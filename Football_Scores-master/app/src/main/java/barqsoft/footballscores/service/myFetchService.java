@@ -21,6 +21,7 @@ import java.util.TimeZone;
 import java.util.Vector;
 
 import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.Utilies;
 import barqsoft.footballscores.model.Team;
 import barqsoft.footballscores.provider.TeamProvider;
 import retrofit.RestAdapter;
@@ -43,13 +44,20 @@ public class myFetchService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        getData("n15"); //n2
-        //getData("p2");
+        SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd",
+                getResources().getConfiguration().locale);
+        Date startDate = new Date(System.currentTimeMillis() - 2 * Utilies.ONE_DAY);
+        Date endDate = new Date(System.currentTimeMillis() + 2 * Utilies.ONE_DAY);
+        if (Utilies.DEBUG) {
+            getData("2015-08-01", "2015-08-20");
+        } else {
+            getData(mformat.format(startDate), mformat.format(endDate));
+        }
     }
 
-    private void getData(String timeFrame) {
+    private void getData(String startDate, String endDate) {
         try {
-            JsonElement team = service.getFixtures("2015-08-01", "2015-08-20");
+            JsonElement team = service.getFixtures(startDate, endDate);
 
             processJSONdata(team.toString(), getApplicationContext(), true);
         } catch (Exception e) {
@@ -92,7 +100,6 @@ public class myFetchService extends IntentService {
         String match_day;
 
         try {
-            Log.e("processJSONdata", "processJSONdata");
             JSONArray matches = new JSONObject(JSONdata).getJSONArray(FIXTURES);
 
             Vector<ContentValues> values = new Vector<>(matches.length());
