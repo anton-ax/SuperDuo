@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="@dimen/list_horizonal_matgin"
     android:layout_marginRight="@dimen/list_horizonal_matgin"
-    tools:context=".MainActivity$PlaceholderFragment"
-    android:background="@color/bg_color">
+    android:background="@color/bg_color"
+    tools:context=".MainActivity$PlaceholderFragment">
 
     <ListView
-        android:background="@drawable/list_bg"
         android:id="@+id/scores_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/list_bg"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="15sp"

@@ -14,7 +14,7 @@ import retrofit.http.Query;
  */
 public interface FootballService {
     //todo place your token here
-    String token = "fb4b1a45fbea4a8eb42fbcecbc429ffa";
+    String token = "YOUR_TOKEN_HERE";
 
     @GET("/teams/{id}")
     @Headers("X-Auth-Token: " + token)

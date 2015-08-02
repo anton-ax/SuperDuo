@@ -37,9 +37,14 @@
     <string name="appwidget_prefix_default">Title</string>
     <string name="empty">No games</string>
     <string name="matchday">"Matchday : "</string>
+    <string name="match_day">Matchday</string>
     <string name="final_title">Final</string>
     <string name="semi_final_title">SemiFinal</string>
     <string name="quarter_final_title">QuarterFinal</string>
     <string name="group_stages_matchday_6">Group Stages, Matchday : 6</string>
     <string name="uknown_league">Not known League Please report</string>
+    <string name="football_league">football_league</string>
+    <string name="share">Share</string>
+    <string name="away">Away team</string>
+    <string name="home">Home team</string>
 </resources>
