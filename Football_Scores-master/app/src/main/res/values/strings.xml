@@ -47,4 +47,8 @@
     <string name="share">Share</string>
     <string name="away">Away team</string>
     <string name="home">Home team</string>
+    <string name="away_logo">Away team logo</string>
+    <string name="home_logo">Home team logo</string>
+    <string name="score">Current score</string>
+    <string name="date">Date</string>
 </resources>

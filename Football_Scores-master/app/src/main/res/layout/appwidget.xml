@@ -13,6 +13,7 @@
         android:background="@color/actionbar_color"
         android:padding="8dp"
         android:text="@string/app_name"
+        android:contentDescription="@string/app_name"
         android:textSize="15sp" />
 
     <ListView
