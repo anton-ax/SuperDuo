@@ -48,10 +48,14 @@ public class BookService extends IntentService {
             final String action = intent.getAction();
             if (FETCH_BOOK.equals(action)) {
                 final String ean = intent.getStringExtra(EAN);
-                fetchBook(ean);
+                if(!ean.equals("")) {
+                    fetchBook(ean);
+                }
             } else if (DELETE_BOOK.equals(action)) {
                 final String ean = intent.getStringExtra(EAN);
-                deleteBook(ean);
+                if(!ean.equals("")) { // check for empty value
+                    deleteBook(ean);
+                }
             }
         }
     }

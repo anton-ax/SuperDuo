@@ -40,6 +40,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     private String mScanFormat = "Format:";
     private String mScanContents = "Contents:";
+    private String lastEAN;
 
 
     public AddBook() {
@@ -78,7 +79,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                     ean = "978" + ean;
                 }
                 if (ean.length() < 13) {
-                    clearFields();
+                    // clearFields(); // prevent hiding last book ( as per specification)
                     return;
                 }
                 //Once we have an ISBN, start a book intent
@@ -114,6 +115,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             @Override
             public void onClick(View view) {
                 ean.setText("");
+                clearFields();
             }
         });
 
@@ -125,6 +127,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 bookIntent.setAction(BookService.DELETE_BOOK);
                 getActivity().startService(bookIntent);
                 ean.setText("");
+                clearFields();
             }
         });
 
@@ -132,6 +135,15 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             ean.setText(savedInstanceState.getString(EAN_CONTENT));
             ean.setHint("");
         }
+
+       /* rootView.findViewById(R.id.bookTitle).post(new Runnable() {
+            @Override
+            public void run() {
+                if (rootView.findViewById(R.id.bookCover).getVisibility() == View.INVISIBLE) {
+                    ((TextView) rootView.findViewById(R.id.bookTitle)).setText("");
+                }
+            }
+        });*/
 
         return rootView;
     }
@@ -161,6 +173,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         if (eanStr.length() == 10 && !eanStr.startsWith("978")) {
             eanStr = "978" + eanStr;
         }
+
         return new CursorLoader(
                 getActivity(),
                 AlexandriaContract.BookEntry.buildFullBookUri(Long.parseLong(eanStr)),
@@ -176,13 +189,10 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         if (!data.moveToFirst()) {
             return;
         }
-
         String bookTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.TITLE));
         ((TextView) rootView.findViewById(R.id.bookTitle)).setText(bookTitle);
-
         String bookSubTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.SUBTITLE));
         ((TextView) rootView.findViewById(R.id.bookSubTitle)).setText(bookSubTitle);
-
         String authors = data.getString(data.getColumnIndex(AlexandriaContract.AuthorEntry.AUTHOR));
         String[] authorsArr = authors.split(",");
         ((TextView) rootView.findViewById(R.id.authors)).setLines(authorsArr.length);
@@ -202,7 +212,6 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
-
     }
 
     private void clearFields() {
