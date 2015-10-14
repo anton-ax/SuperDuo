@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/score_cell_padding">
 
             <TextView
                 android:id="@+id/home_name"
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/score_team_name_padding"
                 android:text="@string/test_text"
                 android:textSize="@dimen/TeamNames" />
 
@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:orientation="vertical"
-            android:paddingTop="5dp">
+            android:paddingTop="@dimen/score_cell_padding">
 
             <TextView
                 android:id="@+id/score_textview"
@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/score_cell_padding">
 
             <TextView
                 android:id="@+id/away_name"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/score_team_name_padding"
                 android:text="@string/test_text"
                 android:textSize="@dimen/TeamNames" />
 

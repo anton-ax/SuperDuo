@@ -16,12 +16,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/score_cell_padding">
 
             <ImageView
                 android:id="@+id/home_crest"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/team_logo_size"
+                android:layout_height="@dimen/team_logo_size"
                 android:layout_gravity="center"
                 android:contentDescription="@string/home_logo" />
 
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/score_team_name_padding"
                 android:text="@string/test_text"
                 android:contentDescription="@string/home"
                 android:textSize="@dimen/TeamNames" />
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:orientation="vertical"
-            android:paddingTop="5dp">
+            android:paddingTop="@dimen/score_cell_padding">
 
             <TextView
                 android:id="@+id/score_textview"
@@ -71,12 +71,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/score_cell_padding">
 
             <ImageView
                 android:id="@+id/away_crest"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/team_logo_size"
+                android:layout_height="@dimen/team_logo_size"
                 android:layout_gravity="center"
                 android:contentDescription="@string/away_logo" />
 
@@ -87,7 +87,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/away"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="@dimen/score_team_name_padding"
                 android:text="@string/test_text"
                 android:textSize="@dimen/TeamNames" />
 

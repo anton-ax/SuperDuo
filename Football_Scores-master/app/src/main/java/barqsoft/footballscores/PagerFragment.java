@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import barqsoft.footballscores.service.myFetchService;
+import barqsoft.footballscores.service.FetchService;
 
 /**
  * Created by yehya khaled on 2/27/2015.
@@ -49,7 +49,7 @@ public class PagerFragment extends Fragment {
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd",
                 getResources().getConfiguration().locale);
 
-        Intent service_start = new Intent(getActivity().getApplicationContext(), myFetchService.class);
+        Intent service_start = new Intent(getActivity().getApplicationContext(), FetchService.class);
         getActivity().getApplicationContext().startService(service_start);
 
         for (int i = 0; i < NUM_PAGES; i++) {

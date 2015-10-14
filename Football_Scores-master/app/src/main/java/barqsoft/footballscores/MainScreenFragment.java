@@ -21,7 +21,7 @@ import android.widget.ListView;
  * A placeholder fragment containing a simple view.
  */
 public class MainScreenFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    public scoresAdapter mAdapter;
+    public ScoresCursorAdapter mAdapter;
     public static final int SCORES_LOADER = 0;
     private String[] fragmentdate = new String[1];
     private BroadcastReceiver receiver;
@@ -39,7 +39,7 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
             fragmentdate[0] = getArguments().getString("date");
         }
         final ListView score_list = (ListView) rootView.findViewById(R.id.scores_list);
-        mAdapter = new scoresAdapter(getActivity(), null, 0);
+        mAdapter = new ScoresCursorAdapter(getActivity(), null, 0);
         score_list.setAdapter(mAdapter);
         getLoaderManager().initLoader(SCORES_LOADER, null, this);
         mAdapter.detail_match_id = MainActivity.selected_match_id;

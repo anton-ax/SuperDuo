@@ -29,13 +29,13 @@ import retrofit.RestAdapter;
 /**
  * Created by yehya khaled on 3/2/2015.
  */
-public class myFetchService extends IntentService {
-    public static final String LOG_TAG = "myFetchService";
+public class FetchService extends IntentService {
+    public static final String LOG_TAG = "FetchService";
     private final FootballService service;
     private ArrayList<String> loadTeamArray = new ArrayList<>();
 
-    public myFetchService() {
-        super("myFetchService");
+    public FetchService() {
+        super("FetchService");
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint("http://api.football-data.org/alpha/")
                 .build();

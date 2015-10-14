@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import barqsoft.footballscores.R;
-import barqsoft.footballscores.service.myFetchService;
+import barqsoft.footballscores.service.FetchService;
 
 /**
  * Created by Anton on 7/24/2015.
@@ -16,7 +16,7 @@ public class FootballAppWidgetProvider extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        Intent service_start = new Intent(context.getApplicationContext(), myFetchService.class);
+        Intent service_start = new Intent(context.getApplicationContext(), FetchService.class);
         context.getApplicationContext().startService(service_start);
 
         for (int appWidgetId : appWidgetIds) {

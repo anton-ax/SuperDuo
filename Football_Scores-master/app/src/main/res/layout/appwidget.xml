@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/actionbar_color"
-        android:padding="8dp"
+        android:padding="@dimen/widget_title_padding"
         android:text="@string/app_name"
         android:contentDescription="@string/app_name"
-        android:textSize="15sp" />
+        android:textSize="@dimen/widget_title_text_size" />
 
     <ListView
         android:id="@+id/scores_list"
@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/widget_title"
         android:clipToPadding="false"
-        android:divider="#40923e"
-        android:dividerHeight="2dp" />
+        android:divider="@color/widget_divider_color"
+        android:dividerHeight="@dimen/widget_list_divider_height" />
 
 </RelativeLayout>

@@ -16,6 +16,6 @@
         android:gravity="center"
         android:text="@string/about_text"
         android:contentDescription="@string/about_text"
-        android:textSize="12sp" />
+        android:textSize="@dimen/about_app_text_size" />
 
 </RelativeLayout>

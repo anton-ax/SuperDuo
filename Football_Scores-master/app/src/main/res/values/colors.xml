@@ -82,4 +82,6 @@
     <color name="colorPrimaryDark">#171717</color>
     <color name="bg_color">#388e3c</color>
 
+    <color name="widget_divider_color">#40923e</color>
+
 </resources>

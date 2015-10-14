@@ -15,7 +15,7 @@ import java.util.Locale;
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilies;
-import barqsoft.footballscores.scoresAdapter;
+import barqsoft.footballscores.ScoresCursorAdapter;
 
 public class FootballViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -57,13 +57,13 @@ public class FootballViewsFactory implements RemoteViewsService.RemoteViewsFacto
                 R.layout.widget_list_item);
         if (mCursor != null && mCursor.getCount() > 0) {
             if (mCursor.moveToPosition(position)) {
-                row.setTextViewText(R.id.home_name, mCursor.getString(scoresAdapter.COL_HOME));
-                row.setTextViewText(R.id.away_name, mCursor.getString(scoresAdapter.COL_AWAY));
+                row.setTextViewText(R.id.home_name, mCursor.getString(ScoresCursorAdapter.COL_HOME));
+                row.setTextViewText(R.id.away_name, mCursor.getString(ScoresCursorAdapter.COL_AWAY));
             }
 
-            row.setTextViewText(R.id.data_textview, mCursor.getString(scoresAdapter.COL_MATCHTIME));
-            String scores = Utilies.getScores(mCursor.getInt(scoresAdapter.COL_HOME_GOALS),
-                    mCursor.getInt(scoresAdapter.COL_AWAY_GOALS));
+            row.setTextViewText(R.id.data_textview, mCursor.getString(ScoresCursorAdapter.COL_MATCHTIME));
+            String scores = Utilies.getScores(mCursor.getInt(ScoresCursorAdapter.COL_HOME_GOALS),
+                    mCursor.getInt(ScoresCursorAdapter.COL_AWAY_GOALS));
             if (scores != null) {
                 row.setTextViewText(R.id.score_textview, scores);
                 row.setViewVisibility(R.id.score_textview, View.VISIBLE);
