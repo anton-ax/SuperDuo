@@ -1,13 +1,16 @@
 package it.jaschke.alexandria;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,6 +44,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     private String mScanFormat = "Format:";
     private String mScanContents = "Contents:";
     private String lastEAN;
+
+    private BroadcastReceiver receiver;
 
 
     public AddBook() {
@@ -136,21 +141,30 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             ean.setHint("");
         }
 
-       /* rootView.findViewById(R.id.bookTitle).post(new Runnable() {
+        receiver = new BroadcastReceiver() {
             @Override
-            public void run() {
-                if (rootView.findViewById(R.id.bookCover).getVisibility() == View.INVISIBLE) {
-                    ((TextView) rootView.findViewById(R.id.bookTitle)).setText("");
-                }
+            public void onReceive(Context context, Intent intent) {
+                Toast.makeText(context, "Check your network connection", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        };
+        LocalBroadcastManager.getInstance(getActivity())
+                .registerReceiver(receiver, new IntentFilter("ConnectionProblemBroadcastIntent"));
 
         return rootView;
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (receiver != null) {
+            LocalBroadcastManager.getInstance(getActivity())
+                    .unregisterReceiver(receiver);
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-      //  super.onActivityResult(requestCode, resultCode, data);
+        //  super.onActivityResult(requestCode, resultCode, data);
         IntentResult scanResult = IntentIntegrator.parseActivityResult(
                 requestCode, resultCode, intent);
 

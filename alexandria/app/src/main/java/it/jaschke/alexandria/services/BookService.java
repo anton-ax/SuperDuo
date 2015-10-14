@@ -106,6 +106,9 @@ public class BookService extends IntentService {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         if(!isConnected) {
+            Intent intent = new Intent("ConnectionProblemBroadcastIntent");
+            LocalBroadcastManager.getInstance(getApplicationContext())
+                    .sendBroadcast(intent);
             return;
         }
 
